@@ -82,8 +82,3 @@ module "kubernetes" {
   aks_node_pool_default           = var.aks_node_pool_default
   azure_virtual_network_subnet_id = module.network.azure_virtual_network_subnet_id
 }
-
-module "application" {
-  source      = "./terraform-azure-application"
-  environment = var.environment
-}
