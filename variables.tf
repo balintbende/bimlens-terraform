@@ -47,3 +47,11 @@ variable "aks_node_pool_default" {
   })
 }
 
+variable "aks_node_pool_high" {
+  description = "The high node group to be added to the AKS"
+  type = object({
+    vm_size   = string
+    min_count = number
+    max_count = number
+  })
+}

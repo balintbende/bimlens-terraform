@@ -1,6 +1,6 @@
 // https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
 resource "azurerm_kubernetes_cluster" "kubernetes-cluster" {
-  name                              = "kc-${var.product}-${var.environment}"
+  name                              = "${var.product}-${var.environment}"
   location                          = var.azure_region
   resource_group_name               = var.azure_resource_group_name
   node_resource_group               = "rg.${var.product}.aks.${var.environment}"
@@ -28,10 +28,15 @@ resource "azurerm_kubernetes_cluster" "kubernetes-cluster" {
     node_labels = {
       node-group-profile = "default"
     }
+
+    upgrade_settings {
+      max_surge = "10%"
+    }
   }
 
-  identity {
-    type = "SystemAssigned"
+  service_principal {
+    client_id     = var.azure_client_id
+    client_secret = var.azure_client_secret
   }
 
   tags = {

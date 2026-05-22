@@ -52,6 +52,18 @@ variable "aks_node_pool_default" {
   })
 }
 
+# High node pool variable — demonstration only, not provisioned.
+# Used by the commented-out locals block in node-pool.tf.
+variable "aks_node_pool_high" {
+  description = "The high node group to be added to the AKS"
+  type = object({
+    vm_size   = string
+    min_count = number
+    max_count = number
+  })
+  default = null
+}
+
 variable "azure_virtual_network_subnet_id" {
   description = "The id of the subnet in the virtual network. Currently only a single subnet."
   type        = string
