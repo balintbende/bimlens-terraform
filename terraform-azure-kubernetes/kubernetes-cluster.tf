@@ -9,6 +9,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes-cluster" {
   role_based_access_control_enabled = true
   sku_tier                          = "Free"
 
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
+  }
+
   network_profile {
     network_plugin = "azure"
     network_policy = "calico"

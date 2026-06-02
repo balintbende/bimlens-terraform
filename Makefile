@@ -31,3 +31,6 @@ destroy-dev:
 	terraform workspace select dev
 	make auto-vars-dev
 	terraform destroy
+
+kubeconfig-dev:
+	az aks get-credentials -g rg.bimlens.dev -n bimlens-dev --admin --overwrite-existing

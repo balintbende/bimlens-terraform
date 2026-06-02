@@ -82,3 +82,33 @@ module "kubernetes" {
   aks_node_pool_default           = var.aks_node_pool_default
   azure_virtual_network_subnet_id = module.network.azure_virtual_network_subnet_id
 }
+
+provider "kubernetes" {
+  host                   = module.kubernetes.kube_config.host
+  client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
+  client_key             = base64decode(module.kubernetes.kube_config.client_key)
+  cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
+}
+
+resource "kubernetes_namespace_v1" "namespace" {
+  metadata {
+    name = var.environment
+  }
+}
+
+provider "helm" {
+  kubernetes {
+    host                   = module.kubernetes.kube_config.host
+    client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
+    client_key             = base64decode(module.kubernetes.kube_config.client_key)
+    cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
+  }
+}
+
+provider "kubectl" {
+  host                   = module.kubernetes.kube_config.host
+  client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
+  client_key             = base64decode(module.kubernetes.kube_config.client_key)
+  cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
+  load_config_file       = false
+}
