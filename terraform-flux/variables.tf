@@ -30,3 +30,9 @@ variable "kube_config" {
   type        = any
   sensitive   = true
 }
+
+variable "ghcr_token" {
+  description = "GitHub classic PAT with read:packages scope"
+  type        = string
+  sensitive   = true
+}

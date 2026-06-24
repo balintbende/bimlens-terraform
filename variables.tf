@@ -71,3 +71,10 @@ variable "github_token" {
   type        = string
   sensitive   = true
 }
+
+variable "ghcr_token" {
+  description = "GitHub classic PAT with read:packages scope (used when ghcr_credentials_enabled = true)"
+  type        = string
+  sensitive   = true
+  default     = ""
+}

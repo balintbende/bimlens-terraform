@@ -69,4 +69,5 @@ module "flux" {
   github_token      = var.github_token
   github_repository = var.github_repository
   kube_config       = module.kubernetes.kube_config
+  ghcr_token        = var.ghcr_token
 }
