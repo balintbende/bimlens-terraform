@@ -55,3 +55,19 @@ variable "aks_node_pool_high" {
     max_count = number
   })
 }
+
+variable "github_owner" {
+  description = "The GitHub owner/org that holds the Flux GitOps repository"
+  type        = string
+}
+
+variable "github_repository" {
+  description = "The GitHub repository name (without owner) that Flux reconciles from"
+  type        = string
+}
+
+variable "github_token" {
+  description = "GitHub PAT used to register the Flux deploy key and commit bootstrap manifests"
+  type        = string
+  sensitive   = true
+}

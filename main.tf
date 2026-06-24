@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.14.4"
+  required_version = "1.15.6"
 
   required_providers {
     azurerm = {
@@ -12,19 +12,9 @@ terraform {
       version = "3.1.0"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "3.1.1"
-    }
-
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "3.1.0"
-    }
-
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "1.19.0"
     }
   }
 
@@ -36,24 +26,6 @@ terraform {
       prefix = "bimlens-"
     }
   }
-}
-
-provider "azurerm" {
-  features {}
-
-  subscription_id = var.azure_subscription_id
-  client_id       = var.azure_client_id
-  client_secret   = var.azure_client_secret
-  tenant_id       = var.azure_tenant_id
-
-  # Enable Azure CLI authentication for local operations
-  # use_cli = true
-}
-
-provider "azuread" {
-  client_id     = var.azure_client_id
-  client_secret = var.azure_client_secret
-  tenant_id     = var.azure_tenant_id
 }
 
 resource "azurerm_resource_group" "resource-group" {
@@ -83,32 +55,18 @@ module "kubernetes" {
   azure_virtual_network_subnet_id = module.network.azure_virtual_network_subnet_id
 }
 
-provider "kubernetes" {
-  host                   = module.kubernetes.kube_config.host
-  client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
-  client_key             = base64decode(module.kubernetes.kube_config.client_key)
-  cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
-}
-
 resource "kubernetes_namespace_v1" "namespace" {
   metadata {
     name = var.environment
   }
 }
 
-provider "helm" {
-  kubernetes {
-    host                   = module.kubernetes.kube_config.host
-    client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
-    client_key             = base64decode(module.kubernetes.kube_config.client_key)
-    cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
-  }
-}
-
-provider "kubectl" {
-  host                   = module.kubernetes.kube_config.host
-  client_certificate     = base64decode(module.kubernetes.kube_config.client_certificate)
-  client_key             = base64decode(module.kubernetes.kube_config.client_key)
-  cluster_ca_certificate = base64decode(module.kubernetes.kube_config.cluster_ca_certificate)
-  load_config_file       = false
+module "flux" {
+  source            = "./terraform-flux"
+  product           = var.product
+  environment       = var.environment
+  github_owner      = var.github_owner
+  github_token      = var.github_token
+  github_repository = var.github_repository
+  kube_config       = module.kubernetes.kube_config
 }

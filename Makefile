@@ -33,4 +33,4 @@ destroy-dev:
 	terraform destroy
 
 kubeconfig-dev:
-	az aks get-credentials -g rg.bimlens.dev -n bimlens-dev --admin --overwrite-existing
+	az aks get-credentials -g rg.bimlens.dev -n bimlens-dev --overwrite-existing
