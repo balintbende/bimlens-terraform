@@ -16,6 +16,11 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "3.1.0"
     }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = "3.1.1"
+    }
   }
 
   backend "remote" {
@@ -70,4 +75,10 @@ module "flux" {
   github_repository = var.github_repository
   kube_config       = module.kubernetes.kube_config
   ghcr_token        = var.ghcr_token
+}
+
+module "application" {
+  source      = "./terraform-azure-application"
+  product     = var.product
+  environment = var.environment
 }
