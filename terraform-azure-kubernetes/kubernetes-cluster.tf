@@ -1,5 +1,5 @@
 // https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
-resource "azurerm_kubernetes_cluster" "kubernetes-cluster" {
+resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                              = "${var.product}-${var.environment}"
   location                          = var.azure_region
   resource_group_name               = var.azure_resource_group_name

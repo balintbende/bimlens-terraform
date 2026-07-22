@@ -16,7 +16,7 @@ locals {
 }
 
 // https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool
-resource "azurerm_kubernetes_cluster_node_pool" "node-pool" {
+resource "azurerm_kubernetes_cluster_node_pool" "node_pool" {
   for_each              = local.node_pools
   name                  = each.value.name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes-cluster.id

@@ -12,7 +12,7 @@ locals {
 }
 
 # Used by Flux's image-reflector-controller to scan private GHCR for new tags.
-resource "kubernetes_secret_v1" "ghcr_flux_system" {
+resource "kubernetes_secret_v1" "ghcr_flux_system_config" {
   metadata {
     name      = "ghcr-credentials"
     namespace = "flux-system"
@@ -29,7 +29,7 @@ resource "kubernetes_secret_v1" "ghcr_flux_system" {
 }
 
 # Used by the kubelet to pull private GHCR images into the application namespace.
-resource "kubernetes_secret_v1" "ghcr_app" {
+resource "kubernetes_secret_v1" "ghcr_app_config" {
   metadata {
     name      = "ghcr-credentials"
     namespace = var.environment
