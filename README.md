@@ -5,13 +5,13 @@ The Terraform modules enable a cluster-as-a-service solution for the
 
 ## Stack
 
-- Terraform 1.14
+- Terraform 1.15
 - Azure (AKS, VNet, Resource Group)
 - Terraform Cloud (remote state, workspace: `bimlens-dev`)
 
 ## Prerequisites
 
-- [Terraform CLI](https://developer.hashicorp.com/terraform/install) >= 1.14
+- [Terraform CLI](https://developer.hashicorp.com/terraform/install) >= 1.15
 - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) — authenticated via `az login`
 - A [Terraform Cloud](https://app.terraform.io) account in the `bimlens` organisation
 
@@ -26,8 +26,6 @@ For all local testing the commands in the `makefile` should be used.
 ## Authentication
 
 ### Terraform Cloud
-
-Generated API token can be found at 1Password.
 
 Export it as an environment variable:
 
