@@ -6,3 +6,12 @@ terraform {
     }
   }
 }
+
+module "gateway" {
+  source = "./gateway"
+}
+
+module "monitoring" {
+  source      = "./monitoring"
+  environment = var.environment
+}
