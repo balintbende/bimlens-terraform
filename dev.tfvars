@@ -4,7 +4,7 @@ azure_region = "Austria East"
 
 aks_node_pool_default = {
   vm_size   = "Standard_D2_v3"
-  max_count = 1
+  max_count = 2
   min_count = 1
 }
 
